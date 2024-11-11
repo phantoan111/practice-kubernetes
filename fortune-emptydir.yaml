@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-emptydir
+spec:
+  volumes:
+    - name: content
+      emptyDir: {}
+  containers:
+    - image: nginx:stable-alpine3.20
+      name: nginx
+      volumeMounts:
+        - name: content
+          mountPath: /usr/share/nginx/html
+      lifecycle:
+        postStart:
+          exec:
+            command:
+            - sh
+            - -c
+            - "ls /usr/share/nginx/html/quote || (apk add fortune && [CA] fortune > /usr/share/nginx/html/quote)"
+      ports:
+        - name: http
+          containerPort: 80
+status: {}

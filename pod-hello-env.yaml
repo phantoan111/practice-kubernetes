@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: hello-env
+  name: hello-env
+spec:
+  containers:
+  - image: phan456/hello-env:v1
+    name: hello-env
+    ports:
+    - containerPort: 3000
+    env:
+      - name: PORT
+        value: "3000"

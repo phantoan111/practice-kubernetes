@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: kubia-ssl
+  name: kubia-ssl
+spec:
+  containers:
+  - image: luksa/kubia:1.0
+    name: kubia
+    ports:
+    - name: http
+      containerPort: 8080
+  - name: envoy
+    image: lussa/kubia-ssl-proxy:1.0
+    ports:
+    - name: https
+      containerPort: 8443
+    - name: admin
+      containerPort: 9901
+status: {}
