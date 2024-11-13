@@ -34,3 +34,12 @@ spec:
             fieldRef:
               fieldPath: metadata.annotations
           - path: "containterCpuRequestMilliCores"
+            resourceFieldRef:
+              containerName: main
+              resource: requests.cpu
+              divisor: 1m
+          - path: "containerMemoryLimitBytes"
+            resourceFieldRef:
+              containerName: main
+              resource: limits.memory
+              divisor: 1Ki
