@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: categories-service
+  name: categories-service
+spec:
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      component: categories-service
+  template:
+    metadata:
+      labels:
+        component: categories-service
+    spec:
+      containers:
+      - image: phan456/microservice:v1
+        name: categories-service
+        env:
+          - name: SERVICES
+            value: categories
+        envFrom:
+          - configMapRef:
+              name: microservice-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    component: news-service
+  name: news-service
+spec:
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      component: news-service
+  template:
+    metadata:
+      labels:
+        component: news-service
+    spec:
+      containers:
+      - image: phan456/microservice:v1
+        name: news-service
+        env:
+          - name: SERVICES
+            value: news
+        envFrom:
+          - configMapRef:
+              name: microservice-config

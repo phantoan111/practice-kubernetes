@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microservice-config
+data:
+  NODE_ENV: testing
+  SERVICEDIR: dist/services
+  CACHER: redis://redis:6379
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_NAME: postgres
+  DB_USER: postgres
+  DB_PASSWORD: postgres
+  TRANSPORTER: nats://nats:4222

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: api-gateway
+  name: api-gateway
+spec:
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      component: api-gateway
+  template:
+    metadata:
+      labels:
+        component: api-gateway
+    spec:
+      containers:
+      - image: phan456/microservice:v1
+        name: api-gateway
+        ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        env:
+          - name: SERVICE
+            value: api
+          - name: PORT
+            value: "3000"
+        envFrom:
+          - configMapRef:
+              name: microservice-config
